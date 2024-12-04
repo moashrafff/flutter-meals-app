@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:meals/components/grid_item.dart';
+import 'package:meals/data/dummy_data.dart';
 
 class CategoriesScreen extends StatelessWidget {
   const CategoriesScreen({super.key});
@@ -12,30 +14,17 @@ class CategoriesScreen extends StatelessWidget {
           ),
         ),
         body: GridView(
+          padding: const EdgeInsets.all(24),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 20,
             childAspectRatio: 3 / 2,
             mainAxisSpacing: 20,
           ),
-          children: const [
-            Text(
-              '1',
-              style: TextStyle(color: Colors.white),
-            ),
-            Text(
-              '2',
-              style: TextStyle(color: Colors.white),
-            ),
-            Text(
-              '3',
-              style: TextStyle(color: Colors.white),
-            ),
-            Text(
-              '4',
-              style: TextStyle(color: Colors.white),
-            ),
-          ],
+          children:  
+            availableCategories
+            .map((category) => GridItem(category: category))
+            .toList(),
         ));
   }
 }
