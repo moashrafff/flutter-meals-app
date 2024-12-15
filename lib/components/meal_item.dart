@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meals/components/meal_trait.dart';
 import 'package:meals/models/meal.dart';
 import 'package:transparent_image/transparent_image.dart';
 
@@ -6,6 +7,17 @@ class MealItem extends StatelessWidget {
   const MealItem({super.key, required this.meal});
 
   final Meal meal;
+
+  String get complixityText {
+    return meal.complexity.name[0].toUpperCase() +
+        meal.complexity.name.substring(1);
+  }
+
+  String get affordabilityText {
+    return meal.affordability.name[0].toUpperCase() +
+        meal.affordability.name.substring(1);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -41,6 +53,7 @@ class MealItem extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
+                      textAlign: TextAlign.center,
                       meal.title, maxLines: 2,
                       softWrap: true,
                       overflow: TextOverflow.ellipsis, // Very long text ...
@@ -50,15 +63,28 @@ class MealItem extends StatelessWidget {
                         color: Colors.white,
                       ),
                     ),
-                    // const SizedBox(
-                    //   height: 12,
-                    // ),
-                    //  Row(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: [
-                    //     MealsItem
-                    //   ],
-                    // )
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        MealTrait(
+                          icon: Icons.schedule,
+                          label: '${meal.duration} min',
+                        ),
+                        const SizedBox(width: 12),
+                        MealTrait(
+                          icon: Icons.work,
+                          label: complixityText,
+                        ),
+                        const SizedBox(width: 12),
+                        MealTrait(
+                          icon: Icons.attach_money,
+                          label: affordabilityText,
+                        )
+                      ],
+                    )
                   ],
                 ),
               ),
