@@ -6,22 +6,24 @@ import 'package:meals/models/meal.dart';
 import 'package:meals/screens/meals.dart';
 
 class CategoriesScreen extends StatelessWidget {
-  const CategoriesScreen({super.key, required this.onFavouriteMeal});
+  const CategoriesScreen({super.key, required this.onFavouriteMeal, required this.availableMeals});
   final Function(Meal meal) onFavouriteMeal;
+  final List<Meal> availableMeals;
 
   void _chooseCategory(BuildContext context, Category category) {
-    final meals = dummyMeals
+    final filteredMeals = availableMeals
         .where((meal) => meal.categories.contains(category.id))
         .toList();
+
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (ctx) => MealsScreen(
           title: category.title,
-          meals: meals,
+          meals: filteredMeals,
           onFavouriteMeal: onFavouriteMeal,
         ),
       ),
-    );
+    ); // Navigator.push(context, route)
   }
 
   @override
